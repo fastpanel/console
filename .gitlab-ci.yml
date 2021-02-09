@@ -14,11 +14,8 @@ jobTest:
   variables:
     NODE_ENV: "test"
   script:
-    - |
-      echo "
-        registry=https://npmjs.desionlab.net/
-        //npmjs.desionlab.net/:_authToken="$CI_JOB_TOKEN"
-      " > .npmrc
+    - npm config set registry=https://npmjs.desionlab.net/
+    - npm config set '//npmjs.desionlab.net/:_authToken="$CI_JOB_TOKEN"'
     - npm i -g @nestjs/cli
     - npm ci
     - npm run test
