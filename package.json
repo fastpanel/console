@@ -1,0 +1,87 @@
+{
+  "name": "@fastpanel/console",
+  "version": "1.0.0",
+  "description": "Wrapper \"[caporal](https://caporal.io/)\" lib for use in \"[nestjs](https://nestjs.com/)\" framework.",
+  "author": "Desionlab <support@desionlab.net>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "*.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p ./tsconfig.build.json",
+    "pack": "npm run build && npm pack",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/**.ts\" --ignore-pattern \"test/**/*.spec.ts\" --fix",
+    "lint:spec": "eslint \"test/**/**.spec.ts\" --fix",
+    "test": "jest --runInBand --detectOpenHandles --passWithNoTests",
+    "test:watch": "jest --watch --runInBand --detectOpenHandles --passWithNoTests"
+  },
+  "homepage": "https://gitlab.desionlab.net/desionlab/fastpanel/packages/console",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.desionlab.net/desionlab/fastpanel/packages/console.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.desionlab.net/desionlab/fastpanel/packages/console/-/issues"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "dependencies": {
+    "@caporal/core": "^2.0.2"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^7.6.11",
+    "@nestjs/core": "^7.6.11",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.25",
+    "@types/supertest": "^2.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.3",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.5.0",
+    "ts-loader": "^8.0.15",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^7.0.0",
+    "@nestjs/core": "^7.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run format"
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": ".",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node"
+  }
+}

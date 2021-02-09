@@ -1,0 +1,23 @@
+#
+# CI Settings for the "Reducer service" project.
+#
+
+image: node:14
+
+stages:
+  - test
+  - build
+  - publish
+
+jobTest:
+  stage: test
+  variables:
+    NODE_ENV: "test"
+  script:
+    -> echo "
+      registry=https://npmjs.desionlab.net/
+      //npmjs.desionlab.net/:_authToken="$CI_JOB_TOKEN"
+    " > .npmrc
+    - npm i -g @nestjs/cli
+    - npm ci
+    - npm run test
