@@ -11,7 +11,6 @@ stages:
 
 before_script:
   - npm config set registry=https://npmjs.desionlab.net/
-  - npm config set '//npmjs.desionlab.net/:_authToken="$NPM_TOKEN"'
   - npm i -g @nestjs/cli
 
 jobTest:
@@ -22,10 +21,12 @@ jobTest:
     - npm ci
     - npm run test
 
-jobPublishToPrivate:
+jobPublishToDesionlab:
   stage: publish
   variables:
     NODE_ENV: "production"
+  before_script:
+    - npx npm-cli-login -u gitlab-ci-token -p "$CI_JOB_TOKEN" -r https://npmjs.desionlab.net -e "gitlab-ci@desionlab.net"
   script:
     - npm ci
     - npm publish --access public
