@@ -13,9 +13,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "config": {
-    "unsafe-perm": true
-  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && npm run compile",
