@@ -6,7 +6,6 @@ image: node:12
 
 stages:
   - test
-  - build
   - publish
 
 before_script:
@@ -17,15 +16,13 @@ before_script:
 jobTest:
   stage: test
   script:
-    - npm i
+    - npm ci
     - npm run test
-    - npm run build
 
 jobPublishToDesionlab:
   stage: publish
   script:
-    - npm i
-    - npm run build
+    - npm ci
     - npm publish --access public
   only:
     - tags
