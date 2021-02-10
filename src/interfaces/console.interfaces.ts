@@ -7,6 +7,7 @@
  */
 
 import { ModuleMetadata, Type } from '@nestjs/common';
+import { IArgumentProps, ICommandProps, IOptionProps } from 'src/decorators';
 
 export interface IConsoleModuleOptions {
   name?: string;
@@ -28,4 +29,11 @@ export interface IConsoleModuleAsyncOptions extends Pick<ModuleMetadata, 'import
   useClass?: Type<IConsoleOptionsFactory>;
   useFactory?: (...args: any[]) => Promise<IConsoleModuleOptions> | IConsoleModuleOptions;
   inject?: any[];
+}
+
+export interface IConsoleCommandListItem extends ICommandProps {
+  arguments: IArgumentProps[];
+  options: IOptionProps[];
+  method: string;
+  instance: Object;
 }

@@ -6,11 +6,12 @@
  * @license   MIT
  */
 
+import { sortBy } from 'lodash';
 import { ActionParameters, ParserTypes, Program } from '@caporal/core';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { IConsoleModuleOptions } from './interfaces';
+import { IConsoleCommandListItem, IConsoleModuleOptions } from './interfaces';
 import { CONSOLE_CAPORAL_PROVIDER, CONSOLE_MODULE_OPTIONS } from './console.constants';
 import { ConsoleMetadataAccessor } from './console-metadata.accessor';
 import { IArgumentProps, ICommandProps, IConsoleProps, IOptionProps } from './decorators';
@@ -64,7 +65,7 @@ export class ConsoleService implements OnModuleInit {
   /**
    *
    */
-  onModuleInit() {
+  onModuleInit(): void {
     this.explore();
   }
 
@@ -90,28 +91,53 @@ export class ConsoleService implements OnModuleInit {
   /**
    *
    */
-  protected explore() {
+  protected explore(): void {
+    /* Commands data buffer. */
+    const commandList: IConsoleCommandListItem[] = [];
+
+    /* Search console controllers. */
     const providers: InstanceWrapper[] = this.discoveryService
       .getProviders()
       .filter((wrapper: InstanceWrapper) => this.metadataAccessor.isConsole(wrapper.metatype));
 
-    /*  */
+    /* Collect command data. */
     providers.forEach((wrapper: InstanceWrapper) => {
       const { instance, metatype } = wrapper;
+
+      /* Get console metadata. */
       const consoleMeta: IConsoleProps = this.metadataAccessor.getConsoleMetadata(metatype);
 
-      /*  */
+      /* Get a list of classes methods. */
       this.metadataScanner.scanFromPrototype(instance, Object.getPrototypeOf(instance), (key: string) => {
         if (this.metadataAccessor.isCommand(instance, key)) {
-          const commandMeta = this.metadataAccessor.getCommandMetadata(instance, key);
-          const optionsMeta = this.metadataAccessor.getOptionsMetadata(instance, key);
-          const argumentsMeta = this.metadataAccessor.getArgumentsMetadata(instance, key);
+          const nameBuffer: string[] = [];
 
-          /*  */
-          this.handleCommand(instance, key, consoleMeta, commandMeta, optionsMeta, argumentsMeta);
+          /* Get command metadata. */
+          const commandMeta: ICommandProps = this.metadataAccessor.getCommandMetadata(instance, key);
+
+          /* Preparing command name elements. */
+          if (consoleMeta.name) nameBuffer.push(consoleMeta.name);
+          nameBuffer.push(commandMeta.name);
+
+          /* Add command to list. */
+          commandList.push({
+            name: nameBuffer.join(this.separator),
+            description: commandMeta.description || '',
+            config: commandMeta.config || {},
+            alias: commandMeta.alias || null,
+            arguments: this.metadataAccessor.getArgumentsMetadata(instance, key) || [],
+            options: this.metadataAccessor.getOptionsMetadata(instance, key) || [],
+            method: key,
+            instance: instance
+          });
         }
       });
     });
+
+    /* Bind commands. */
+    for (const item of sortBy(commandList, 'name')) {
+      this.handleCommand(item);
+    }
   }
 
   /**
@@ -122,33 +148,26 @@ export class ConsoleService implements OnModuleInit {
    * @param opts
    * @param args
    */
-  protected handleCommand(instance: object, key: string, console: IConsoleProps, command: ICommandProps, opts: IOptionProps[], args: IArgumentProps[]) {
-    /* Name buffer */
-    const nb = [];
-
-    /* Preparing command name elements. */
-    if (console.name) nb.push(console.name);
-    nb.push(command.name);
-
+  protected handleCommand(command: IConsoleCommandListItem): void {
     /* Create command. */
-    const tc = this.handler.command(nb.join(this.separator), command.description, command.config);
+    const tc = this.handler.command(command.name, command.description, command.config);
 
     /* Set command alias. */
     if (command.alias) tc.alias(...command.alias);
 
     /* Add arguments to command. */
-    args.forEach(argument => {
+    command.arguments.forEach((argument: IArgumentProps) => {
       tc.argument(argument.synopsis, argument.description, argument.options);
     });
 
     /* Add options to command. */
-    opts.forEach(option => {
+    command.options.forEach((option: IOptionProps) => {
       tc.option(option.synopsis, option.description, option.options);
     });
 
     /* Bind command action. */
     tc.action(async (params: ActionParameters) => {
-      return await instance[key](params);
+      return await command.instance[command.method](params);
     });
   }
 }
