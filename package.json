@@ -1,6 +1,6 @@
 {
   "name": "@fastpanel/console",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "description": "Wrapper \"[caporal](https://caporal.io/)\" lib for use in \"[nestjs](https://nestjs.com/)\" framework.",
   "author": "Desionlab <support@desionlab.net>",
   "license": "MIT",

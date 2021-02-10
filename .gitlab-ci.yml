@@ -23,6 +23,7 @@ jobPublishToDesionlab:
   stage: publish
   script:
     - npm ci
+    - npm run build
     - npm publish --access public
   only:
     - tags
