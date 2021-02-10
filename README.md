@@ -86,6 +86,11 @@ async function bootstrap() {
   /* Get console service. */
   const consoleService = app.get<ConsoleService>(ConsoleService);
 
+  /* Add default help command. */
+  consoleService.getHandler.action(async ({ program }) => {
+    await program.exec(['help']);
+  });
+
   /* Run cli handler. */
   await consoleService.run();
 
@@ -95,6 +100,29 @@ async function bootstrap() {
 
 /* Run app. */
 bootstrap();
+```
+
+4. Add scripts to package.json
+
+```json
+{
+  "scripts": {
+    "console": "node dist/main.js",
+    "console:dev": "ts-node -r tsconfig-paths/register src/main.ts"
+  }
+}
+```
+
+5. Use in terminal.
+
+```bash
+# Run in development mode
+npm run console:dev -- help
+npm run console:dev -- command-name
+
+# Run in prod or build mode
+npm run console -- help
+npm run console -- command-name
 ```
 
 ## License
