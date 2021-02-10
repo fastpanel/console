@@ -54,11 +54,13 @@ import { ConsoleModule } from '@fastpanel/console';
 import { PizzaCommands } from './pizza.commands.ts';
 
 @Module({
-  imports: [ConsoleModule.forRoot({
-    name: 'my-test-app',
-    version: '1.0.0',
-    description: 'My test app'
-  })],
+  imports: [
+    ConsoleModule.forRoot({
+      name: 'my-test-app',
+      version: '1.0.0',
+      description: 'My test app'
+    })
+  ],
   providers: [PizzaCommands]
 })
 export class AppModule {}
