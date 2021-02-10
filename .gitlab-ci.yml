@@ -20,7 +20,7 @@ jobTest:
   variables:
     NODE_ENV: "test"
   script:
-    - npm ci
+    - npm i
     - npm run test
 
 jobPublishToDesionlab:
@@ -28,7 +28,7 @@ jobPublishToDesionlab:
   variables:
     NODE_ENV: "production"
   script:
-    - npm ci
+    - npm i
     - npm run build
     - npm publish --access public
   only:
