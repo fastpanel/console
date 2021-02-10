@@ -2,7 +2,7 @@
 # CI Settings for the "Reducer service" project.
 #
 
-image: node:14
+image: node:12
 
 stages:
   - test
