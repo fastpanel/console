@@ -7,7 +7,7 @@
  */
 
 import { ModuleMetadata, Type } from '@nestjs/common';
-import { IArgumentProps, ICommandProps, IOptionProps } from 'src/decorators';
+import { IArgumentProps, ICommandProps, IOptionProps } from '../decorators';
 
 export interface IConsoleModuleOptions {
   name?: string;
