@@ -1,6 +1,6 @@
 {
   "name": "@fastpanel/console",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "description": "Wrapper \"[caporal](https://caporal.io/)\" lib for use in \"[nestjs](https://nestjs.com/)\" framework.",
   "author": "Desionlab <support@desionlab.net>",
   "license": "MIT",
@@ -13,6 +13,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "config": {
+    "unsafe-perm": true
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && npm run compile",
@@ -22,8 +25,7 @@
     "lint": "eslint \"src/**/**.ts\" --ignore-pattern \"test/**/*.spec.ts\" --fix",
     "lint:spec": "eslint \"test/**/**.spec.ts\" --fix",
     "test": "jest --runInBand --detectOpenHandles --passWithNoTests",
-    "test:watch": "jest --watch --runInBand --detectOpenHandles --passWithNoTests",
-    "prepare": "npm run build"
+    "test:watch": "jest --watch --runInBand --detectOpenHandles --passWithNoTests"
   },
   "homepage": "https://gitlab.desionlab.net/desionlab/fastpanel/packages/console",
   "repository": {

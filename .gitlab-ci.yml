@@ -10,6 +10,7 @@ stages:
   - publish
 
 before_script:
+  - npm config set unsafe-perm true
   - npm config set registry=https://npmjs.desionlab.net/
   - npm config set '//npmjs.desionlab.net/:_authToken' "$NPM_TOKEN"
   - npm i -g @nestjs/cli
@@ -28,6 +29,7 @@ jobPublishToDesionlab:
     NODE_ENV: "production"
   script:
     - npm ci
+    - npm run build
     - npm publish --access public
   only:
     - tags
