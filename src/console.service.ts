@@ -65,7 +65,7 @@ export class ConsoleService implements OnModuleInit {
   /**
    *
    */
-  onModuleInit() {
+  onModuleInit(): void {
     this.explore();
   }
 
@@ -91,7 +91,7 @@ export class ConsoleService implements OnModuleInit {
   /**
    *
    */
-  protected explore() {
+  protected explore(): void {
     /* Commands data buffer. */
     const commandList: IConsoleCommandListItem[] = [];
 
@@ -148,7 +148,7 @@ export class ConsoleService implements OnModuleInit {
    * @param opts
    * @param args
    */
-  protected handleCommand(command: IConsoleCommandListItem) {
+  protected handleCommand(command: IConsoleCommandListItem): void {
     /* Create command. */
     const tc = this.handler.command(command.name, command.description, command.config);
 
