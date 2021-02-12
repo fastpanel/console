@@ -13,6 +13,7 @@ import { IConsoleModuleAsyncOptions, IConsoleModuleOptions, IConsoleOptionsFacto
 import { CONSOLE_MODULE_OPTIONS, CONSOLE_CAPORAL_PROVIDER } from './console.constants';
 import { ConsoleMetadataAccessor } from './console-metadata.accessor';
 import { ConsoleService } from './console.service';
+import { ConsoleExplorer } from './console.explorer';
 
 const CAPORAL_FACTORY = {
   provide: CONSOLE_CAPORAL_PROVIDER,
@@ -35,6 +36,7 @@ export class ConsoleModule {
         },
         CAPORAL_FACTORY,
         ConsoleMetadataAccessor,
+        ConsoleExplorer,
         ConsoleService
       ],
       exports: [CAPORAL_FACTORY, ConsoleService]
@@ -46,7 +48,13 @@ export class ConsoleModule {
       global: true,
       module: ConsoleModule,
       imports: [DiscoveryModule],
-      providers: [...this.createOptionsProviders(options), CAPORAL_FACTORY, ConsoleMetadataAccessor, ConsoleService],
+      providers: [
+        ...this.createOptionsProviders(options),
+        CAPORAL_FACTORY,
+        ConsoleMetadataAccessor,
+        ConsoleExplorer,
+        ConsoleService
+      ],
       exports: [CAPORAL_FACTORY, ConsoleService]
     };
   }
