@@ -1,11 +1,18 @@
 # fastPanel [console]
+Create console (cli) application in NestJS framework context.
 
-> Wrapper "[caporal](https://caporal.io/)" lib for use in "[nestjs](https://nestjs.com/)" framework.
+> The a wrapper "[caporal](https://caporal.io/)" lib for use in "[nestjs](https://nestjs.com/)" framework.
 
 ## Install
 
+### Stable
 ```bash
-npm i @fastpanel/console --save
+npm i @fastpanel/console
+```
+
+### Develop
+```bash
+npm i @fastpanel/console --registry https://npmjs.desionlab.net
 ```
 
 ## Usage
@@ -107,8 +114,8 @@ bootstrap();
 ```json
 {
   "scripts": {
-    "console": "node dist/main.js",
-    "console:dev": "ts-node -r tsconfig-paths/register src/main.ts"
+    "console": "node dist/cli.js",
+    "console:dev": "ts-node -r tsconfig-paths/register src/cli.ts"
   }
 }
 ```
