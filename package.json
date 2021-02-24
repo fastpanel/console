@@ -1,7 +1,7 @@
 {
   "name": "@fastpanel/console",
   "version": "1.0.0-alpha.10",
-  "description": "Wrapper \"[caporal](https://caporal.io/)\" lib for use in \"[nestjs](https://nestjs.com/)\" framework.",
+  "description": "Create console (cli) application in NestJS framework context.",
   "author": "Desionlab <support@desionlab.net>",
   "license": "MIT",
   "main": "dist/index.js",
