@@ -1,5 +1,5 @@
 #
-# CI Settings for the "Reducer service" project.
+# CI Settings.
 #
 
 image: node:12
@@ -18,7 +18,7 @@ jobTest:
     - npm ci
     - npm run test
 
-jobPublishToDesionlab:
+jobPublishToDevelop:
   stage: publish
   script:
     - npm ci
