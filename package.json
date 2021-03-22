@@ -2,7 +2,9 @@
   "name": "@fastpanel/console",
   "version": "1.0.0-alpha.10",
   "description": "Create console (cli) application in NestJS framework context.",
-  "author": "Desionlab <support@desionlab.net>",
+  "keywords": [],
+  "author": "Desionlab <support@desionlab.net> (https://desionlab.net)",
+  "contributors": [],
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -67,7 +69,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format"
+      "pre-commit": "npm run format && npm run lint"
     }
   },
   "jest": {
