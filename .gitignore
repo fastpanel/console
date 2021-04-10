@@ -25,6 +25,9 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
+# Husky
+.husky
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
