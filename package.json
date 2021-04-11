@@ -16,16 +16,15 @@
     "access": "public"
   },
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "npm run compile",
     "compile": "tsc -p ./tsconfig.build.json",
-    "pack": "npm run build && npm pack",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/**.ts\" --ignore-pattern \"test/**/*.spec.ts\" --fix",
     "lint:spec": "eslint \"test/**/**.spec.ts\" --fix",
+    "prebuild": "rimraf dist",
+    "prepare": "is-ci || husky install",
     "test": "jest --runInBand --detectOpenHandles --passWithNoTests",
-    "test:watch": "jest --watch --runInBand --detectOpenHandles --passWithNoTests",
-    "prepare": "husky install"
+    "test:watch": "jest --watch --runInBand --detectOpenHandles --passWithNoTests"
   },
   "homepage": "https://gitlab.desionlab.net/desionlab/fastpanel/packages/console",
   "repository": {
@@ -53,6 +52,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^6.0.0",
+    "is-ci": "^3.0.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "reflect-metadata": "^0.1.13",
@@ -67,11 +67,6 @@
   "peerDependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format && npm run lint"
-    }
   },
   "jest": {
     "moduleFileExtensions": [
