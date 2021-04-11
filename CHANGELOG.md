@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update dependencies.
 - Setting up the project.
 - Add github workflows.
+- Add demo app.
+- Update docs.
 
 ## [1.0.0-alpha.10]
 ### Changed
