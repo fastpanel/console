@@ -2,7 +2,12 @@
   "name": "@fastpanel/console",
   "version": "1.0.0-alpha.11",
   "description": "Create console (cli) application in NestJS framework context.",
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "console",
+    "nestjs",
+    "fastpanel"
+  ],
   "author": "Desionlab <support@desionlab.net> (https://desionlab.net)",
   "contributors": [],
   "license": "MIT",
