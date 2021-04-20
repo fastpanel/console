@@ -1,0 +1,28 @@
+#
+# CI Settings.
+#
+
+image: node:12
+
+stages:
+  - test
+  - publish
+
+before_script:
+  - npm config set registry=https://npmjs.desionlab.net/
+  - npm config set '//npmjs.desionlab.net/:_authToken' "$NPM_TOKEN"
+
+jobTest:
+  stage: test
+  script:
+    - npm ci
+    - npm run test
+
+jobPublishToDevelop:
+  stage: publish
+  script:
+    - npm ci
+    - npm run build
+    - npm publish --access public
+  only:
+    - tags
